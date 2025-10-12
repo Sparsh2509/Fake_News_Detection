@@ -35,8 +35,15 @@ def predict_news(news: NewsItem):
     else:
         message = "The article seems reliable based on the model analysis."
 
+    advice = "Note: This prediction is based on the model and may not be 100% accurate. Always verify with trusted sources."
+
+
     return {
         "prediction": prediction,
         "confidence": f"{confidence}%",
         "message": message,
+
+        "Final_Note" :{
+            "note": advice
+        }
     }
