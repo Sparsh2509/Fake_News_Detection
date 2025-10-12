@@ -27,6 +27,7 @@ def predict_news(news: NewsItem):
     proba = nb_model.predict_proba(transformed_text)[0]
 
     # Get confidence percentage
+    prediction = str(prediction)
     confidence = float(round(max(proba) * 100, 2))
 
     # Generate response message
