@@ -43,7 +43,7 @@ def predict_news(news: NewsItem):
         "confidence": f"{confidence}%",
         "message": message,
 
-        "Final_Note" :{
-            "note": advice
+        "Final_Suggestion" :{
+            "Suggestion": advice
         }
     }
