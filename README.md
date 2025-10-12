@@ -33,20 +33,23 @@ This project is based on the dataset by kaggle [Fake-and-Real-News-Dataset](http
 - Real → "The article seems reliable based on the model analysis."
 - Final Suggestion → "Note: This prediction is based on the model and may not be 100% accurate. Always verify with trusted sources."
 
-
 ---
 
 ## 📂 Project Structure
 
 ```
-Heart_Disease_Prediction/
-├── app.py                                              # FastAPI backend logic
-├── Heart_Disease_Predict_Model.py                      # Model training script
-├── Heart_disease_cleveland_new.csv                     # Cleaned cleveland dataset used for training
-├── randomforest_heart_model.joblib                     # Trained Random forest classifier model
-├── feature_columns.joblib                              # Saved feature order for clean prediction
-├── requirements.txt                                    # Python package dependencies
-└── README.md                                           # Project documentation
+Fake_News_Detection/
+├── Dataset/
+│   └── NLP_final_news_dataset.csv                # Cleaned dataset
+├── nb_fake_news_model.joblib                     # Trained Naive Bayes model 
+├── tfidf_vectorizer.joblib                       # Saved TF-IDF vectorizer                       
+├── NLP_Dataset_preprocessing.py                  # Dataset cleaning and preprocessing
+├── Tranformation_text_to_num.py                  # TF-IDF vectorization
+├── Train_and_Test_of_Transform_Data.py           # Train/test split and evaluation
+├── Fake_news_detection_model.py                  # Train and save model
+├── app.py                                        # FastAPI backend
+├── requirements.txt                              # Python dependencies
+└── README.md                                     # Project documentation
 ```
 
 ---
@@ -54,12 +57,12 @@ Heart_Disease_Prediction/
 ## 🛠️ Installation
 
 ### Prerequisites:
-- Python 3.9.5
+- Python 3.13.7
 
 ### Setup:
 ```bash
 # Repository Name
-Heart_Disease_Risk_Prediction
+Fake_News_Detection
 
 # Create virtual environment
 python -m venv venv
@@ -76,12 +79,20 @@ pip install -r requirements.txt
 To train or retrain the model using the dataset:
 
 ```bash
-python Heart_Disease_Predict_Model.py
+python Fake_news_detection_model.py
 ```
+Preprocess the dataset
+- ` NLP_Dataset_preprocessing.py `
 
-This will generate the model and features order files:
-- `randomforest_heart_model.joblib `
-- `feature_columns.joblib`
+Transform text to numeric TF-IDF features
+- ` Tranformation_text_to_num.py `
+
+Train and evaluate model
+- ` Train_and_Test_of_Transform_Data.py `
+
+This will generate the model and saved TF-IDF vectorizer files:
+- `nb_fake_news_model.joblib `
+- `tfidf_vectorizer.joblib`
 
 ---
 
@@ -95,7 +106,7 @@ uvicorn app:app --reload
 Navigate to:
 - Swagger Docs: [http://127.0.0.1:8000/docs](http://127.0.0.1:8000/docs)
 - Root: [http://127.0.0.1:8000](http://127.0.0.1:8000)
-- Render: [https://heart-disease-risk-prediction-hpkk.onrender.com](https://heart-disease-risk-prediction-hpkk.onrender.com)
+- Render: [https://fake-news-detection-bz5e.onrender.com](https://fake-news-detection-bz5e.onrender.com)
 
 ---
 
@@ -109,19 +120,7 @@ POST /predict
 ### Request Body Example:
 ```json
 {
-  "age": 56,
-  "sex": 1,
-  "cp": 2,
-  "trestbps": 150,
-  "chol": 260,
-  "fbs": 1,
-  "restecg": 1,
-  "thalach": 120,
-  "exang": 1,
-  "oldpeak": 2.5,
-  "slope": 2,
-  "ca": 2,
-  "thal": 2
+    "text": "An anonymous insider revealed that Coca-Cola will halt production worldwide after their secret formula was leaked on the dark web. The company has not yet responded to the allegations."
 }
 
 ```
@@ -129,24 +128,12 @@ POST /predict
 ### Sample Response:
 ```json
 {
-  "ml_prediction": {
-    "heart_disease_probability": "82.5%",
-    "no_disease_probability": "17.5%",
-    "ml_risk_message": "High risk — please consult a cardiologist immediately"
-  },
-  "score_prediction": {
-    "risk_score": 13,
-    "risk_level": "High Risk",
-    "threshold_flags": [
-      "Older age (>50 years)",
-      "High resting blood pressure (>140 mm Hg)",
-      "High cholesterol level (>240 mg/dl)",
-      "Low max heart rate (<130 bpm)",
-      "Exercise-induced angina detected",
-      "Significant ST depression (>1.5)"
-    ]
-  },
-  "final_advice": "The ML model and scoring system together indicate your overall heart risk. For accurate diagnosis, please consult a healthcare professional."
+  "prediction": "Fake",
+    "confidence": "81.97%",
+    "message": "The article seems suspicious or misleading. Verify before sharing.",
+    "Final_Suggestion": {
+        "Suggestion": "Note: This prediction is based on the model and may not be 100% accurate. Always verify with trusted sources."
+    }
 }
 
 ```
@@ -155,10 +142,11 @@ POST /predict
 
 ## 🧠 Model Overview
 
-- Algorithm: `Random Forest Classifier`
-- Input Features: 13
-- Target: `Target` (0 or 1)
-- Evaluation: Accuracy ~ 90.20%
+- Algorithm: `Multinomial Naive Bayes`
+- Feature Extraction: `TF-IDF`
+- Input Features: News text
+- Target: `Target` (0 or 1) (Fake : 0 or True : 1)
+- Evaluation: Accuracy ~ 93.24%
 
 ---
 
