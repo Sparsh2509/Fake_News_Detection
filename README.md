@@ -27,24 +27,11 @@ This project is based on the dataset by kaggle [Fake-and-Real-News-Dataset](http
 
 ---
 
-## ⚙️ Rule-Based Risk Scoring System
+## 💡 Prediction Interpretation
 
-- Each patient’s input is evaluated against known medical thresholds.
-- Every abnormal feature adds to a cumulative health risk score, which helps explain why the model made its prediction.
-
-### Scoring Logic
-- age > 50 →       +1 point (Older age)
-- cp ≥ 2 →         +1 point (Abnormal chest pain: non-anginal/asymptomatic)
-- trestbps > 140 → +2 points (High resting blood pressure)
-- chol > 240 →     +2 points (High cholesterol)
-- fbs == 1 →       +1 point (High fasting blood sugar)
-- restecg != 0 →   +1 point (Abnormal ECG result)
-- thalach < 130 →  +2 points (Low max heart rate achieved)
-- exang == 1 →     +2 points (Exercise-induced angina)
-- oldpeak > 1.5 →  +2 points (Significant ST depression)
-- slope == 2 →     +1 point (Downsloping ST segment)
-- ca ≥ 1 →         +2 points (Major vessels affected)
-- thal != 0 →      +2 points (Abnormal thalassemia)
+- Fake → "The article seems suspicious or misleading. Verify before sharing."
+- Real → "The article seems reliable based on the model analysis."
+- Final Suggestion → "Note: This prediction is based on the model and may not be 100% accurate. Always verify with trusted sources."
 
 ---
 
