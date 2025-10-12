@@ -4,7 +4,7 @@ import pandas as pd
 file_path = r"D:\Sparsh\ML_Projects\Fake_News_Detection\Dataset\final_news_dataset.csv"
 
 # Step 1: Read file safely using 'python' engine
-df = pd.read_csv(file_path, engine="python", header=None, error_bad_lines=False)
+df = pd.read_csv(file_path, engine="python", header=None, on_bad_lines=False)
 
 # Step 2: Merge all extra columns into one text column (join with space)
 df['merged'] = df.apply(lambda x: ' '.join(str(v) for v in x if pd.notna(v)), axis=1)
