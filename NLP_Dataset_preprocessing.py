@@ -1,8 +1,8 @@
 import pandas as pd
 import re
-import nltk
-from nltk.corpus import stopwords
-from nltk.stem import WordNetLemmatizer
+import nltk  # type: ignore
+from nltk.corpus import stopwords # type: ignore
+from nltk.stem import WordNetLemmatizer # type: ignore
 
 # Download stopwords and wordnet only 
 nltk.download('stopwords')
