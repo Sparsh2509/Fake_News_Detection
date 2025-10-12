@@ -16,4 +16,4 @@ tfidf = TfidfVectorizer(max_features=5000,  # top 5000 words
 # Fit and transform the text data
 X = tfidf.fit_transform(texts)
 
-print("✅ TF-IDF feature matrix shape:", X.shape)
+print("TF-IDF feature matrix shape:", X.shape)
