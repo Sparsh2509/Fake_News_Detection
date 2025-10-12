@@ -1,15 +1,13 @@
-# Fixed Preprocessing for Fake News Detection
+# Preprocessing for Fake News Detection without punkt_tab issue
 import pandas as pd
 import re
-import nltk
 from nltk.corpus import stopwords
 from nltk.stem import WordNetLemmatizer
-from nltk.tokenize import word_tokenize
 
-# --- Download NLTK resources (only once) ---
+# --- Download stopwords and wordnet only ---
+import nltk
 nltk.download('stopwords')
 nltk.download('wordnet')
-nltk.download('punkt')       # fixed tokenizer resource
 
 # --- Load your CSV ---
 df = pd.read_csv(r'D:\Sparsh\ML_Projects\Fake_News_Detection\Dataset\final_news_dataset_clean.csv')  # replace with your file path
@@ -17,6 +15,11 @@ df = pd.read_csv(r'D:\Sparsh\ML_Projects\Fake_News_Detection\Dataset\final_news_
 # --- Initialize lemmatizer and stopwords ---
 lemmatizer = WordNetLemmatizer()
 stop_words = set(stopwords.words('english'))
+
+# --- Simple Python tokenizer function ---
+def simple_tokenize(text):
+    # Split on spaces
+    return text.split()
 
 # --- Preprocessing function ---
 def clean_text(text):
@@ -26,8 +29,8 @@ def clean_text(text):
     text = text.lower()
     # 2. Remove punctuation & numbers
     text = re.sub(r'[^a-z\s]', '', text)
-    # 3. Tokenization
-    tokens = word_tokenize(text, language='english')  # fixed line
+    # 3. Tokenization (Python split instead of nltk.word_tokenize)
+    tokens = simple_tokenize(text)
     # 4. Remove stopwords & lemmatize
     tokens = [lemmatizer.lemmatize(word) for word in tokens if word not in stop_words]
     # 5. Join back to string
@@ -42,4 +45,4 @@ df['cleaned_text'] = df['text'].apply(clean_text)  # replace 'text' with your co
 # --- Save cleaned dataset ---
 df.to_csv('final_news_dataset_cleaned.csv', index=False)
 
-print("✅ Preprocessing complete! Cleaned CSV saved as 'final_news_dataset_cleaned.csv'")
+print("Preprocessing complete! Cleaned CSV saved as 'final_news_dataset_cleaned.csv'")
