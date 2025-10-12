@@ -1,8 +1,8 @@
 import pandas as pd
 
 # Loading both datasets
-fake = pd.read_csv("D:\Sparsh\ML_Projects\Fake_News_Detection\Dataset\Fake.csv")
-true = pd.read_csv("D:\Sparsh\ML_Projects\Fake_News_Detection\Dataset\True.csv")
+fake = pd.read_csv(r"D:\Sparsh\ML_Projects\Fake_News_Detection\Dataset\Fake.csv")
+true = pd.read_csv(r"D:\Sparsh\ML_Projects\Fake_News_Detection\Dataset\True.csv")
 
 # Add labels 
 # True as 1 
