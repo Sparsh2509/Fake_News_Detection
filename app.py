@@ -4,9 +4,9 @@ import joblib # type: ignore
 import os
 
 # Load saved model and vectorizer
-model_dir = r'D:\Sparsh\ML_Projects\Fake_News_Detection\Model'
-nb_model = joblib.load(os.path.join(model_dir, 'nb_fake_news_model.joblib'))
-tfidf = joblib.load(os.path.join(model_dir, 'tfidf_vectorizer.joblib'))
+
+nb_model = joblib.load("nb_fake_news_model.joblib")
+tfidf = joblib.load("tfidf_vectorizer.joblib")
 
 
 app = FastAPI(title="Fake News Detection API", version="1.0")

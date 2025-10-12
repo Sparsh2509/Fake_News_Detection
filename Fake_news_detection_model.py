@@ -5,7 +5,6 @@ from sklearn.feature_extraction.text import TfidfVectorizer # type: ignore
 from sklearn.model_selection import train_test_split # type: ignore
 from sklearn.naive_bayes import MultinomialNB # type: ignore
 from sklearn.metrics import accuracy_score, classification_report, confusion_matrix # type: ignore
-import os
 import joblib # type: ignore
 
 # Load cleaned dataset 
@@ -42,15 +41,12 @@ print("Confusion Matrix:")
 print(confusion_matrix(y_test, y_pred))
 
 
-# Create folder if it doesn't exist
-model_dir = r'D:\Sparsh\ML_Projects\Fake_News_Detection\Model'
-os.makedirs(model_dir, exist_ok=True)  # creates folder if missing
 
 # Save Naive Bayes model
-joblib.dump(nb_model, os.path.join(model_dir, 'nb_fake_news_model.joblib'))
+joblib.dump(nb_model,'nb_fake_news_model.joblib')
 print("Naive Bayes model saved successfully.")
 
 # Save TF-IDF vectorizer
-joblib.dump(tfidf, os.path.join(model_dir, 'tfidf_vectorizer.joblib'))
+joblib.dump(tfidf,'tfidf_vectorizer.joblib')
 print("TF-IDF vectorizer saved successfully.")
 
