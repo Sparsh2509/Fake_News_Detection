@@ -1,21 +1,24 @@
+# Fixed Preprocessing for Fake News Detection
 import pandas as pd
 import re
 import nltk
 from nltk.corpus import stopwords
 from nltk.stem import WordNetLemmatizer
+from nltk.tokenize import word_tokenize
 
-# Download NLTK resources (only once)
+# --- Download NLTK resources (only once) ---
 nltk.download('stopwords')
-nltk.download('punkt')
 nltk.download('wordnet')
+nltk.download('punkt')       # fixed tokenizer resource
 
-# Load your CSV
-df = pd.read_csv(r'D:\Sparsh\ML_Projects\Fake_News_Detection\Dataset\final_news_dataset_clean.csv')  # replace with your file path
+# --- Load your CSV ---
+df = pd.read_csv('final_news_dataset.csv')  # replace with your file path
 
-# Initialize lemmatizer and stopwords
+# --- Initialize lemmatizer and stopwords ---
 lemmatizer = WordNetLemmatizer()
 stop_words = set(stopwords.words('english'))
 
+# --- Preprocessing function ---
 def clean_text(text):
     if pd.isnull(text):
         return ""
@@ -24,7 +27,7 @@ def clean_text(text):
     # 2. Remove punctuation & numbers
     text = re.sub(r'[^a-z\s]', '', text)
     # 3. Tokenization
-    tokens = nltk.word_tokenize(text)
+    tokens = word_tokenize(text, language='english')  # fixed line
     # 4. Remove stopwords & lemmatize
     tokens = [lemmatizer.lemmatize(word) for word in tokens if word not in stop_words]
     # 5. Join back to string
@@ -33,11 +36,10 @@ def clean_text(text):
     text = re.sub(r'\s+', ' ', text).strip()
     return text
 
-# Apply preprocessing to the column containing news text (replace 'text' with your column name)
-df['cleaned_text'] = df['text'].apply(clean_text)
+# --- Apply preprocessing ---
+df['cleaned_text'] = df['text'].apply(clean_text)  # replace 'text' with your column name
 
-# Save cleaned dataset
-df.to_csv('NLP_final_news_dataset.csv', index=False)
+# --- Save cleaned dataset ---
+df.to_csv('final_news_dataset_cleaned.csv', index=False)
 
-print("Preprocessing complete! Cleaned CSV saved as 'NLP_final_news_dataset_.csv'")
-
+print("✅ Preprocessing complete! Cleaned CSV saved as 'final_news_dataset_cleaned.csv'")
