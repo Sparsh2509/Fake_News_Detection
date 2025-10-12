@@ -8,7 +8,7 @@ from nltk.stem import WordNetLemmatizer
 nltk.download('stopwords')
 nltk.download('wordnet')
 
-# --- Load your CSV ---
+# Load your CSV 
 df = pd.read_csv(r'D:\Sparsh\ML_Projects\Fake_News_Detection\Dataset\final_news_dataset_clean.csv')  # replace with your file path
 
 # Initialize lemmatizer and stopwords 
