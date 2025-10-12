@@ -1,6 +1,6 @@
-from fastapi import FastAPI
-from pydantic import BaseModel
-import joblib
+from fastapi import FastAPI # type: ignore
+from pydantic import BaseModel # type: ignore
+import joblib # type: ignore
 import os
 
 # Load saved model and vectorizer
