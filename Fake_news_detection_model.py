@@ -40,7 +40,18 @@ print(classification_report(y_test, y_pred, target_names=['Fake', 'Real']))
 print("Confusion Matrix:")
 print(confusion_matrix(y_test, y_pred))
 
-joblib.dump(nb_model, r'D:\Sparsh\ML_Projects\Fake_News_Detection\Model\nb_fake_news_model.joblib')
-print("Naive Bayes model saved successfully.")
-joblib.dump(tfidf, r'D:\Sparsh\ML_Projects\Fake_News_Detection\Model\tfidf_vectorizer.joblib')
-print("TF-IDF vectorizer saved successfully.")
+import os
+import joblib
+
+# Create folder if it doesn't exist
+model_dir = r'D:\Sparsh\ML_Projects\Fake_News_Detection\Model'
+os.makedirs(model_dir, exist_ok=True)  # creates folder if missing
+
+# Save Naive Bayes model
+joblib.dump(nb_model, os.path.join(model_dir, 'nb_fake_news_model.joblib'))
+print("✅ Naive Bayes model saved successfully.")
+
+# Save TF-IDF vectorizer
+joblib.dump(tfidf, os.path.join(model_dir, 'tfidf_vectorizer.joblib'))
+print("✅ TF-IDF vectorizer saved successfully.")
+
