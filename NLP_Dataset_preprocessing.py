@@ -12,7 +12,7 @@ nltk.download('wordnet')
 nltk.download('punkt')       # fixed tokenizer resource
 
 # --- Load your CSV ---
-df = pd.read_csv('final_news_dataset.csv')  # replace with your file path
+df = pd.read_csv(r'D:\Sparsh\ML_Projects\Fake_News_Detection\Dataset\final_news_dataset_clean.csv')  # replace with your file path
 
 # --- Initialize lemmatizer and stopwords ---
 lemmatizer = WordNetLemmatizer()
