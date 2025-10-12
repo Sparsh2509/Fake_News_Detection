@@ -27,7 +27,7 @@ def predict_news(news: NewsItem):
     proba = nb_model.predict_proba(transformed_text)[0]
 
     # Get confidence percentage
-    confidence = round(max(proba) * 100, 2)
+    confidence = float(round(max(proba) * 100, 2))
 
     # Generate response message
     if prediction == "Fake":
