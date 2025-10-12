@@ -1,7 +1,7 @@
 from fastapi import FastAPI # type: ignore
 from pydantic import BaseModel # type: ignore
 import joblib # type: ignore
-import os
+
 
 # Load saved model and vectorizer
 
@@ -9,37 +9,34 @@ nb_model = joblib.load("nb_fake_news_model.joblib")
 tfidf = joblib.load("tfidf_vectorizer.joblib")
 
 
-app = FastAPI(title="Fake News Detection API", version="1.0")
+app = FastAPI(title="Fake News Detection API")
 
 
-# Request body schema
-class NewsArticle(BaseModel):
-    title: str = None   # optional
-    text: str           # main content for prediction
+class NewsItem(BaseModel):
+    text: str
 
-
-#Routes
 @app.get("/")
-def home():
-    return {"message": "Welcome to the Fake News Detection API!"}
-
+def root():
+    return {"message": "Fake News Detection API is running!"}
 
 @app.post("/predict")
-def predict_news(article: NewsArticle):
-    # Combine title and text if title exists
-    content = article.text if article.title is None else article.title + " " + article.text
+def predict_news(news: NewsItem):
+    # Transform input
+    transformed_text = tfidf.transform([news.text])
+    prediction = nb_model.predict(transformed_text)[0]
+    proba = nb_model.predict_proba(transformed_text)[0]
 
-    # Transform using TF-IDF
-    vector = tfidf.transform([content])
+    # Get confidence percentage
+    confidence = round(max(proba) * 100, 2)
 
-    # Make prediction
-    pred = nb_model.predict(vector)[0]
+    # Generate response message
+    if prediction == "Fake":
+        message = "The article seems suspicious or misleading. Verify before sharing."
+    else:
+        message = "The article seems reliable based on the model analysis."
 
-    # Convert label to readable format
-    label = "Real" if pred == 1 else "Fake"
-
-    # Return response
     return {
-        "prediction": label
+        "prediction": prediction,
+        "confidence": f"{confidence}%",
+        "message": message,
     }
-
