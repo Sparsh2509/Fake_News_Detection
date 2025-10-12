@@ -1,6 +1,6 @@
 # Step 1: Feature Extraction using TF-IDF
 import pandas as pd
-from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.feature_extraction.text import TfidfVectorizer # type: ignore
 
 # Load NLP cleaned dataset
 df = pd.read_csv(r'D:\Sparsh\ML_Projects\Fake_News_Detection\Dataset\NLP_final_news_dataset.csv')  # your cleaned CSV
