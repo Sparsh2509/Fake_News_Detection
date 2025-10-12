@@ -145,15 +145,15 @@ POST /predict
 - Algorithm: `Multinomial Naive Bayes`
 - Feature Extraction: `TF-IDF`
 - Input Features: News text
-- Target: `Target` (0 or 1) (Fake : 0 or True : 1)
+- Target: `Target` (0 or 1) (Fake : 0 or Real : 1)
 - Evaluation: Accuracy ~ 93.24%
 
 ---
 
 ## 📘 Dataset Info
 
-- Source: Heart Disease Cleveland UCI
-- [Heart Disease Cleveland UCI](https://www.kaggle.com/datasets/cherngs/heart-disease-cleveland-uci?resource=download)
+- Source: Fake-and-Real-News-Dataset
+- [Fake-and-Real-News-Dataset](https://www.kaggle.com/datasets/clmentbisaillon/fake-and-real-news-dataset)
 
 ---
 
