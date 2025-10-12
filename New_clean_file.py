@@ -1,32 +1,36 @@
 import pandas as pd
 
-# ✅ Use raw string to avoid escape issues in Windows path
 file_path = r"D:\Sparsh\ML_Projects\Fake_News_Detection\Dataset\final_news_dataset.csv"
 
-# Step 1: Safely read the file using 'python' engine and skip bad lines
-df = pd.read_csv(file_path, engine="python", header=None, on_bad_lines='skip')
+# Step 1: Read CSV safely — force pandas to treat commas inside text properly
+# 'error_bad_lines=False' is deprecated, so use 'on_bad_lines="skip"'
+# Try different quotechar just in case — many CSVs use double quotes
+df = pd.read_csv(file_path, sep=',', quotechar='"', engine='python', on_bad_lines='skip')
 
-# Step 2: Merge all text columns into one column
-df['merged'] = df.apply(lambda x: ' '.join(str(v) for v in x if pd.notna(v)), axis=1)
+print("Columns found:", df.columns.tolist())
+print("Before cleaning:", df.shape)
 
-# Step 3: Extract label (0 or 1 at the end)
-df['label'] = df['merged'].str.extract(r'(\b[01]\b)$')
-df['label'] = df['label'].fillna(method='ffill').fillna(method='bfill')
+# Step 2: Remove unnamed columns automatically
+df = df.loc[:, ~df.columns.str.contains('^Unnamed')]
 
-# Step 4: Clean text (remove the label number from the end)
-df['text'] = df['merged'].str.replace(r'\b[01]\b$', '', regex=True).str.strip()
+# Step 3: Ensure we have the expected 5 columns only
+expected_cols = ['title', 'text', 'subject', 'date', 'label']
+df = df[[col for col in df.columns if col in expected_cols]]
 
-# Step 5: Keep only text and label
-df = df[['text', 'label']]
+# Step 4: Handle missing data
+df['title'] = df['title'].fillna("No Title")
+df['text'] = df['text'].fillna("")
+df['subject'] = df['subject'].fillna("Unknown")
+df['date'] = df['date'].fillna("Unknown")
+df['label'] = df['label'].fillna("Unknown")
 
-# Step 6: Remove missing or blank values
-df.dropna(subset=['text', 'label'], inplace=True)
-df = df[df['text'].str.strip() != '']
+# Step 5: Drop duplicate news texts
+df = df.drop_duplicates(subset=['text']).reset_index(drop=True)
 
-# Step 7: Save cleaned dataset
-output_path = r"D:\Sparsh\ML_Projects\Fake_News_Detection\Dataset\final_news_dataset_cleaned.csv"
-df.to_csv(output_path, index=False)
+print("After cleaning:", df.shape)
 
-print(f"✅ Cleaned dataset saved successfully at:\n{output_path}")
-print(f"📊 Final shape: {df.shape}")
-print(df.head(5))
+# Step 6: Save cleaned dataset
+output_path = "final_news_dataset_clean.csv"
+df.to_csv(output_path, index=False, encoding='utf-8')
+
+print(f"✅ Cleaned dataset saved as {output_path}")
