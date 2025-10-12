@@ -7,31 +7,23 @@ This project is based on the dataset by kaggle [Fake-and-Real-News-Dataset](http
 
 ## 🚀 Features
 
-- Predicts **presence or absence of heart disease** (0 = No Disease, 1 = Disease)
-- Uses a hybrid system:
-  - 🎯 Machine Learning (Random Forest) — provides probability-based prediction
-  - 🩺 Rule-Based Scoring — evaluates each input against known medical thresholds
-
-- Organized input via five intuitive medical sections:
-  - **Demographic Information** – age, sex
-  - **Chest Pain & Vitals** – chest pain type, resting blood pressure, cholesterol
-  - **Blood & Sugar Data** – fasting blood sugar, maximum heart rate
-  - **ECG & Exercise Information** – resting ECG results, exercise-induced angina, ST depression
-  - **Scan & Diagnostic Results** – number of major vessels colored, thalassemia type
+- Predicts Fake or Real news based on article content.
+- Provides confidence score for prediction.
+- Returns human-readable advisory messages for user awareness.
+- Built with Naive Bayes classifier and TF-IDF feature extraction.
+- Organized input and output for easy API integration.
 
 ---
 
-## 🧠 Machine Learning Prediction (Random Forest Classifier)
+## 🧠 Machine Learning Prediction (Naive Bayes)
 
-- Predicts the probability of having heart disease using a trained Random Forest model.
-- Outputs two probabilities:
-  - Heart Disease Probability (%)
-  - No Disease Probability (%)
-- Generates clear, human-readable messages:
-  - 🟢 Low risk → "Low risk — your heart health seems good"
-  - 🟡 Moderate risk → "Moderate risk — maintain a healthy lifestyle"
-  - 🔴 High risk → "High risk — please consult a cardiologist immediately"
-- Achieves an average accuracy of ~90.20%.
+- Uses a trained Naive Bayes model with TF-IDF features to predict news credibility.
+- Outputs:
+  - Prediction → Fake or Real
+  - Confidence (%) → How confident the model is
+  - Advisory messages → Suggestions to verify information
+
+- Achieves an accuracy of ~93.24%.
 
 ---
 
