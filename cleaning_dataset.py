@@ -1,7 +1,7 @@
 import pandas as pd
 
 # Load merged dataset
-df = pd.read_csv("D:\Sparsh\ML_Projects\Fake_News_Detection\Dataset\final_news_dataset.csv")
+df = pd.read_csv(r"D:\Sparsh\ML_Projects\Fake_News_Detection\Dataset\final_news_dataset.csv")
 
 print("Before cleaning:", df.shape)
 
@@ -23,4 +23,4 @@ print("After cleaning:", df.shape)
 
 # Save cleaned dataset
 df.to_csv("final_news_dataset_clean.csv", index=False)
-print("✅ Cleaned dataset saved as final_news_dataset_clean.csv")
+print("Cleaned dataset saved as final_news_dataset_clean.csv")
