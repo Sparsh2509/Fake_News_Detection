@@ -33,16 +33,6 @@ This project is based on the dataset by kaggle [Fake-and-Real-News-Dataset](http
 - Real → "The article seems reliable based on the model analysis."
 - Final Suggestion → "Note: This prediction is based on the model and may not be 100% accurate. Always verify with trusted sources."
 
----
-
-### 💡 Score Interpretation
-- 0–3 → 🟢 Low Risk: Heart appears healthy.
-- 4–7 → 🟡 Moderate Risk: Maintain lifestyle; consider a routine check-up.
-- ≥8 → 🔴 High Risk: Consult a cardiologist immediately.
-
-
-- Returns a clear **prediction** (Heart Disease / No Heart Disease) with **confidence score of 90.20%**
-- Built using a lightweight and scalable **FastAPI backend**
 
 ---
 
