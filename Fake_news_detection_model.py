@@ -5,6 +5,7 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.model_selection import train_test_split
 from sklearn.naive_bayes import MultinomialNB
 from sklearn.metrics import accuracy_score, classification_report, confusion_matrix
+import joblib
 
 # Load cleaned dataset 
 df = pd.read_csv(r'D:\Sparsh\ML_Projects\Fake_News_Detection\Dataset\NLP_final_news_dataset.csv')
@@ -38,3 +39,8 @@ print(classification_report(y_test, y_pred, target_names=['Fake', 'Real']))
 
 print("Confusion Matrix:")
 print(confusion_matrix(y_test, y_pred))
+
+joblib.dump(nb_model, r'D:\Sparsh\ML_Projects\Fake_News_Detection\Model\nb_fake_news_model.joblib')
+print("Naive Bayes model saved successfully.")
+joblib.dump(tfidf, r'D:\Sparsh\ML_Projects\Fake_News_Detection\Model\tfidf_vectorizer.joblib')
+print("TF-IDF vectorizer saved successfully.")
