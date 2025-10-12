@@ -1,12 +1,12 @@
 
 # Step 3: Train & Evaluate Naive Bayes Classifier
 import pandas as pd
-from sklearn.feature_extraction.text import TfidfVectorizer
-from sklearn.model_selection import train_test_split
-from sklearn.naive_bayes import MultinomialNB
-from sklearn.metrics import accuracy_score, classification_report, confusion_matrix
+from sklearn.feature_extraction.text import TfidfVectorizer # type: ignore
+from sklearn.model_selection import train_test_split # type: ignore
+from sklearn.naive_bayes import MultinomialNB # type: ignore
+from sklearn.metrics import accuracy_score, classification_report, confusion_matrix # type: ignore
 import os
-import joblib
+import joblib # type: ignore
 
 # Load cleaned dataset 
 df = pd.read_csv(r'D:\Sparsh\ML_Projects\Fake_News_Detection\Dataset\NLP_final_news_dataset.csv')
