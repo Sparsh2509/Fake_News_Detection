@@ -19,15 +19,17 @@ class NewsItem(BaseModel):
 def root():
     return {"message": "Fake News Detection API is running!"}
 
+label_map = {0: "Fake", 1: "Real"}
+
 @app.post("/predict")
 def predict_news(news: NewsItem):
     # Transform input
     transformed_text = tfidf.transform([news.text])
-    prediction = nb_model.predict(transformed_text)[0]
+    prediction_num = nb_model.predict(transformed_text)[0]
     proba = nb_model.predict_proba(transformed_text)[0]
 
     # Get confidence percentage
-    prediction = str(prediction)
+    prediction = label_map[int(prediction_num)]
     confidence = float(round(max(proba) * 100, 2))
 
     # Generate response message
