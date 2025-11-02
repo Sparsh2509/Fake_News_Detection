@@ -1,19 +1,9 @@
 from fastapi import FastAPI 
 from pydantic import BaseModel  
 import joblib  
-import boto3
 import os
 
-# --- S3 setup ---
-s3 = boto3.client("s3")
-bucket_name = "fake-news-models-files"
 
-# Download model if not exists locally
-if not os.path.exists("nb_fake_news_model.joblib"):
-    s3.download_file(bucket_name, "nb_fake_news_model.joblib", "nb_fake_news_model.joblib")
-
-if not os.path.exists("tfidf_vectorizer.joblib"):
-    s3.download_file(bucket_name, "tfidf_vectorizer.joblib", "tfidf_vectorizer.joblib")
 
 # Load models
 nb_model = joblib.load("nb_fake_news_model.joblib")
