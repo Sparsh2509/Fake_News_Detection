@@ -1,5 +1,5 @@
 
-# Step 3: Train & Evaluate Naive Bayes Classifier
+# Train & Evaluate Naive Bayes Classifier
 import pandas as pd
 from sklearn.feature_extraction.text import TfidfVectorizer # type: ignore
 from sklearn.model_selection import train_test_split # type: ignore
