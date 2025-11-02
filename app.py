@@ -1,26 +1,45 @@
-from fastapi import FastAPI 
-from pydantic import BaseModel  
-import joblib  
+from fastapi import FastAPI
+from pydantic import BaseModel
+import joblib
 import os
 
-
+# ----------------------------
+# Paths for models
+# ----------------------------
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+NB_MODEL_PATH = os.path.join(BASE_DIR, "nb_fake_news_model.joblib")
+TFIDF_PATH = os.path.join(BASE_DIR, "tfidf_vectorizer.joblib")
 
 # Load models
-nb_model = joblib.load("nb_fake_news_model.joblib")
-tfidf = joblib.load("tfidf_vectorizer.joblib")
+nb_model = joblib.load(NB_MODEL_PATH)
+tfidf = joblib.load(TFIDF_PATH)
 
-# --- FastAPI app ---
+# ----------------------------
+# FastAPI app
+# ----------------------------
 app = FastAPI(title="Fake News Detection API")
 
+# ----------------------------
+# Request schema
+# ----------------------------
 class NewsItem(BaseModel):
     text: str
 
+# ----------------------------
+# Root endpoint
+# ----------------------------
 @app.get("/")
 def root():
     return {"message": "Fake News Detection API is running!"}
 
+# ----------------------------
+# Prediction mapping
+# ----------------------------
 label_map = {0: "Fake", 1: "Real"}
 
+# ----------------------------
+# Prediction endpoint
+# ----------------------------
 @app.post("/predict")
 def predict_news(news: NewsItem):
     transformed_text = tfidf.transform([news.text])
