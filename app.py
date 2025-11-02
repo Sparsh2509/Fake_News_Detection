@@ -1,5 +1,5 @@
-from fastapi import FastAPI  # type: ignore
-from pydantic import BaseModel  # type: ignore
+from fastapi import FastAPI 
+from pydantic import BaseModel  
 import joblib  
 import boto3
 import os
