@@ -1,1 +1,1 @@
-web: sh -c "gunicorn app:app -w 4 -k uvicorn.workers.UvicornWorker --bind 0.0.0.0:$PORT --log-level info"
+web: gunicorn app:app -w 4 -k uvicorn.workers.UvicornWorker --bind :$PORT --log-level info
