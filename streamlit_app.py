@@ -13,12 +13,12 @@ default_text = (
     "The company has not yet responded to the allegations."
 )
 
-# Initialize session state for the text box
+# Initialize session state safely
 if "news_text" not in st.session_state:
-    st.session_state.news_text = default_text
+    st.session_state["news_text"] = default_text
 
-# Text input area
-news_text = st.text_area("News Article", value=st.session_state.news_text, height=200, key="news_text")
+# Text input area (binds to session state)
+news_text = st.text_area("News Article", value=st.session_state["news_text"], height=200)
 
 # API endpoint
 API_URL = "http://fake-news-detection2-env.eba-gdmi2vhg.ap-south-1.elasticbeanstalk.com/predict"
@@ -31,20 +31,20 @@ with col1:
 with col2:
     clear_clicked = st.button("🧹 Clear Text")
 
-# Clear text logic
+# Clear text logic (safe update)
 if clear_clicked:
-    st.session_state.news_text = ""
-    st.experimental_rerun()
+    st.session_state["news_text"] = ""
+    st.rerun()  # clean rerun to reflect cleared text
 
 # Prediction logic
 if predict_clicked:
     if news_text.strip() == "":
         st.warning("Please enter some text to analyze.")
     else:
-        # Prepare payload
         payload = {"text": news_text}
         try:
-            response = requests.post(API_URL, json=payload, timeout=10)
+            with st.spinner("Analyzing..."):
+                response = requests.post(API_URL, json=payload, timeout=10)
             if response.status_code == 200:
                 result = response.json()
                 st.subheader("Prediction Result")
