@@ -3,6 +3,11 @@
 A machine learning-powered web API using FastAPI to detect whether a news article is Fake or Real.
 This project is based on the dataset by kaggle [Fake-and-Real-News-Dataset](https://www.kaggle.com/datasets/clmentbisaillon/fake-and-real-news-dataset).
 
+### Deployed Project Using API on Streamlit 
+
+ Test APP HERE -
+ [https://fakenewsdetection-fcsvxd6c9n6kxyprviuvtl.streamlit.app/](https://fakenewsdetection-fcsvxd6c9n6kxyprviuvtl.streamlit.app/)
+
 ---
 
 ## 🚀 Features
@@ -49,6 +54,7 @@ Fake_News_Detection/
 ├── Fake_news_detection_model.py                  # Train and save model
 ├── app.py                                        # FastAPI backend
 ├── requirements.txt                              # Python dependencies
+├── streamlit_app.py                              # Deployed App Using API On Streamlit
 └── README.md                                     # Project documentation
 ```
 
@@ -106,7 +112,7 @@ uvicorn app:app --reload
 Navigate to:
 - Swagger Docs: [http://127.0.0.1:8000/docs](http://127.0.0.1:8000/docs)
 - Root: [http://127.0.0.1:8000](http://127.0.0.1:8000)
-- Render: [https://fake-news-detection-bz5e.onrender.com](https://fake-news-detection-bz5e.onrender.com)
+- AWS EB API URL: [http://fake-news-detection2-env.eba-gdmi2vhg.ap-south-1.elasticbeanstalk.com](http://fake-news-detection2-env.eba-gdmi2vhg.ap-south-1.elasticbeanstalk.com)
 
 ---
 
